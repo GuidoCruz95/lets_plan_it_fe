@@ -1,5 +1,6 @@
 import MembersList from "views/Members.js"
 import EventsList from "views/Events"
+import NewMember from "views/NewMember"
 
 var routes = [
   {
@@ -14,6 +15,14 @@ var routes = [
     name: "Eventos",
     icon: "nc-icon nc-calendar-60",
     component: EventsList,
+    layout: "/admin"
+  },
+  {
+    hide: true,
+    path: "/new-member",
+    name: "New User",
+    icon: "nc-icon nc-calendar-60",
+    component: NewMember,
     layout: "/admin"
   }
 ];

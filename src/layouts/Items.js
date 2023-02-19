@@ -10,6 +10,8 @@ import {
     Col
 } from "reactstrap";
 
+import { Link } from "react-router-dom";
+
 function ItemsList(title, headers, data) {
     return (
         <div className="content">
@@ -18,6 +20,7 @@ function ItemsList(title, headers, data) {
                     <Card>
                         <CardHeader>
                             <CardTitle tag="h4">{title}</CardTitle>
+                            <Link to='new-member'>Nuevo Registro</Link>
                         </CardHeader>
                         <CardBody>
                             <Table responsive>
