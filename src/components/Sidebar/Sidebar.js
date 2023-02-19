@@ -70,23 +70,25 @@ function Sidebar(props) {
       <div className="sidebar-wrapper" ref={sidebar}>
         <Nav>
           {props.routes.map((prop, key) => {
-            return (
-              <li
-                className={
-                  activeRoute(prop.path) + (prop.pro ? " active-pro" : "")
-                }
-                key={key}
-              >
-                <NavLink
-                  to={prop.layout + prop.path}
-                  className="nav-link"
-                  activeClassName="active"
+            if (!prop.hide) {
+              return (
+                <li
+                  className={
+                    activeRoute(prop.path) + (prop.pro ? " active-pro" : "")
+                  }
+                  key={key}
                 >
-                  <i className={prop.icon} />
-                  <p>{prop.name}</p>
-                </NavLink>
-              </li>
-            );
+                  <NavLink
+                    to={prop.layout + prop.path}
+                    className="nav-link"
+                    activeClassName="active"
+                  >
+                    <i className={prop.icon} />
+                    <p>{prop.name}</p>
+                  </NavLink>
+                </li>
+              );
+            }
           })}
         </Nav>
       </div>
