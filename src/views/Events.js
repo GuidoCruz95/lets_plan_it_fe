@@ -1,7 +1,7 @@
 import events from "../data/events.json";
 import ItemsList from '../layouts/Items'
 
-function EventsList(){
+function EventsList() {
     let tittle = 'Lista de eventos registrados'
     let headers = ['No.', 'Nombre', 'Lugar', 'Fecha Inicio', 'Fecha Fin', 'Costo']
     let data_parsed = events.map((prop, key) => {
@@ -16,7 +16,7 @@ function EventsList(){
             </tr>
         );
     })
-    return ItemsList(tittle, headers, data_parsed)
+    return ItemsList(tittle, headers, data_parsed, { 'to': 'new-event', 'title': 'Registrar nuevo evento' })
 }
 
 export default EventsList;

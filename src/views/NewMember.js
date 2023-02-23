@@ -21,9 +21,9 @@ let formulary_title = "Registro de nuevo miembro"
 function NewMember() {
 
     const options = [
-        { value: 'chocolate' },
-        { value: 'strawberry' },
-        { value: 'vanilla' }
+        { value: 'Vengadores' },
+        { value: 'Redimidos' },
+        { value: 'Siempre Listos' }
     ]
 
     const [memberCi, setMemberCi] = useState('')

@@ -12,7 +12,7 @@ import {
 
 import { Link } from "react-router-dom";
 
-function ItemsList(title, headers, data) {
+function ItemsList(title, headers, data, link_to = null) {
     return (
         <div className="content">
             <Row>
@@ -20,7 +20,7 @@ function ItemsList(title, headers, data) {
                     <Card>
                         <CardHeader>
                             <CardTitle tag="h4">{title}</CardTitle>
-                            <Link to='new-member'>Nuevo Registro</Link>
+                            {link_to ? <Link to={link_to.to}>{link_to.title}</Link> : null}
                         </CardHeader>
                         <CardBody>
                             <Table responsive>
