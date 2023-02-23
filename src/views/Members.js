@@ -15,7 +15,7 @@ function MembersList(){
             </tr>
         );
     })
-    return ItemsList(tittle, headers, data_parsed)
+    return ItemsList(tittle, headers, data_parsed, {'to': 'new-member', 'title': 'Registrar nuevo'})
 }
 
 export default MembersList;
