@@ -30,7 +30,7 @@ function TagsInput() {
                     <span className="close" onClick={() => removeTag(index)}>&times;</span>
                 </div>
             ))}
-            <input onKeyDown={handleKeyDown} type="text" className="tags-input" placeholder="Type somthing" />
+            <input onKeyDown={handleKeyDown} type="text" className="tags-input" placeholder="escribe algo" />
         </div>
     )
 }

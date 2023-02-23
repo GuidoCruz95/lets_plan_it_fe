@@ -1,6 +1,6 @@
 import MembersList from "views/Members.js"
 import EventsList from "views/Events"
-import NewUser from "views/NewMember"
+import NewMember from "views/NewMember"
 import NewEvent from "views/NewEvent";
 
 var routes = [
@@ -23,7 +23,7 @@ var routes = [
     path: "/new-member",
     name: "New User",
     icon: "nc-icon nc-calendar-60",
-    component: NewUser,
+    component: NewMember,
     layout: "/admin"
   },
   {

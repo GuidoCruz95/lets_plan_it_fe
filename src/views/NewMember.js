@@ -18,7 +18,7 @@ import {
 let formulary_title = "Registro de nuevo miembro"
 
 
-function NewUser() {
+function NewMember() {
 
     const options = [
         { value: 'Vengadores' },
@@ -224,4 +224,4 @@ function NewUser() {
     );
 }
 
-export default NewUser;
+export default NewMember;
