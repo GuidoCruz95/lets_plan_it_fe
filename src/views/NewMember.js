@@ -91,6 +91,7 @@ class NewMember extends React.Component {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(custom_body)
         };
+        // TODO: Move the URLs to a single file, use importing those.
         fetch('http://localhost:8000/church/person/', requestOptions)
             .then(response => response.json())
             .then(data => this.setState({ postId: data.id }));

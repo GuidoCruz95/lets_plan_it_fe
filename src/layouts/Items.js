@@ -20,7 +20,11 @@ function ItemsList(title, headers, data, link_to = null) {
                     <Card>
                         <CardHeader>
                             <CardTitle tag="h4">{title}</CardTitle>
-                            {link_to ? <Link to={link_to.to}>{link_to.title}</Link> : null}
+                            {link_to.map((prop, key) => {
+                                return (
+                                    <Link key={key} to={prop.to}> {prop.title}</Link>
+                                );
+                            })}
                         </CardHeader>
                         <CardBody>
                             <Table responsive>

@@ -29,7 +29,15 @@ function MembersList() {
             </tr>
         );
     })
-    return ItemsList(tittle, headers, data_parsed, { 'to': 'new-member', 'title': 'Registrar nuevo' })
+    return ItemsList(
+        tittle,
+        headers,
+        data_parsed,
+        [
+            { 'to': 'new-member', 'title': 'Registrar nuevo miembro' },
+            // TODO: New Link to import members from a CSV file, the component should be implemented.
+            // { 'to': 'import-members', 'title': 'Importar datos usando archivo CSV' }
+        ])
 }
 
 export default MembersList;
