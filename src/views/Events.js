@@ -31,7 +31,7 @@ function EventsList() {
             </tr>
         );
     })
-    return ItemsList(tittle, headers, data_parsed, { 'to': 'new-event', 'title': 'Registrar nuevo evento' })
+    return ItemsList(tittle, headers, data_parsed, [{ 'to': 'new-event', 'title': 'Registrar nuevo evento' }])
 }
 
 export default EventsList;
