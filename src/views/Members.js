@@ -36,7 +36,7 @@ function MembersList() {
         [
             { 'to': 'new-member', 'title': 'Registrar nuevo miembro' },
             // TODO: New Link to import members from a CSV file, the component should be implemented.
-            // { 'to': 'import-members', 'title': 'Importar datos usando archivo CSV' }
+            { 'to': 'import-members', 'title': 'Importar datos usando archivo CSV' }
         ])
 }
 
