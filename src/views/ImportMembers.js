@@ -16,9 +16,27 @@ import {
     Label,
     FormText
 } from "reactstrap";
-import ItemsList from '../layouts/Items'
 
 let formulary_title = "Import members"
+
+// function send_notification(identifier, memberName) {
+//     const notificationAlert = React.useRef();
+//     var options = {};
+//     options = {
+//         place: "tr",
+//         message: (
+//             <div>
+//                 <div>
+//                     {identifier} con nombre {memberName} ya esta registrado en el systema
+//                 </div>
+//             </div>
+//         ),
+//         type: "danger",
+//         icon: "nc-icon nc-bell-55",
+//         autoDismiss: 5
+//     };
+//     notificationAlert.current.notificationAlert(options);
+// }
 
 class ImportMembers extends React.Component {
 
@@ -28,9 +46,15 @@ class ImportMembers extends React.Component {
         this.state = {
             members: [],
             file: null,
-            headers: ["Number", "Ci", "Firstname", "Lastname", , "Email", "About You", "Birthdate", "status"]
+            headers: ["Number", "Ci", "Firstname", "Lastname", , "Email", "About You", "Birthdate"]
         };
     }
+
+    registerMembers() {
+        var identifier = 123123
+        var memberName = "Juan"
+        // send_notification(identifier, memberName)
+    };
 
     handleChange = (event) => {
         const fileUploaded = event.target.files[0];
@@ -47,12 +71,11 @@ class ImportMembers extends React.Component {
                     'last_name': attributes[2],
                     'email': attributes[3],
                     'about_you': attributes[4],
-                    'birthdate': attributes[5]
+                    'birthdate': attributes[5],
                 }
                 fileData.push(member)
             })
-            console.log(fileData)
-            return this.setState({ members: fileData })
+            this.setState({ members: fileData })
         };
         reader.readAsText(fileUploaded)
     };
@@ -117,6 +140,20 @@ class ImportMembers extends React.Component {
                                                 </tbody>
                                             </Table>
                                         </CardBody>
+                                        <CardFooter>
+                                            <Row>
+                                                <div className="update ml-auto mr-auto">
+                                                    <Button
+                                                        className="btn-round"
+                                                        color="primary"
+                                                        type="submit"
+                                                        // onClick={this.registerMembers()}
+                                                    >
+                                                        Registrar Miembros
+                                                    </Button>
+                                                </div>
+                                            </Row>
+                                        </CardFooter>
                                     </Card>
                                 </CardBody>
                             </Card>
