@@ -1,4 +1,4 @@
-## Planning my Church
+## Lets Plan It
 
 #### Front End project:
 
