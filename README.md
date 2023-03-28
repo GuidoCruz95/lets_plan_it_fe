@@ -1,10 +1,10 @@
-## Planning my Church
+## Lets Plan It
 
 #### Front End project:
 
-PlanningMyChurch 
+LetsPlanIt
 
-An application to handle the required on a small church, register members, create cells for them, create events, asociate them.
+An application to handle the required on a small organization, register members, create groups for them, create events, asociate them.
 
 ## Project Status
 
@@ -28,10 +28,10 @@ To Start Server:
 
 To Visit App:
 
-`localhost:3000/ideas`  
+`localhost:3000/`  
 
 ## Reflection
 
-  - This software will helps to register all members of a church, and remember important dates like birthdates
-  - To organize better when you have an event on the church, you will be able to use this and know how many people are on the event, if they already went to others, etc.
+  - This software will helps to register all members of an organization, create groups of members.
+  - To organize better when you have an event on the organization, you will be able to use this and know how many people are on the event, if they already went to others, etc.
   - 
