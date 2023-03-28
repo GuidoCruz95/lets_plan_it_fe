@@ -22,7 +22,7 @@ let formulary_title = "Import members"
 
 function ImportMembers() {
 
-    const headers = ["Number", "Ci", "Firstname", "Lastname", , "Email", "About You", "Birthdate"]
+    const headers = ["No.", "Ci", "Firstname", "Lastname", , "Email", "About You", "Birthdate"]
     const [members, setMembers] = useState([])
     const notificationAlert = React.useRef();
 
@@ -37,11 +37,12 @@ function ImportMembers() {
                 var attributes = prop.split(";")
                 var member = {
                     'ci': attributes[0],
-                    'first_name': attributes[1],
-                    'last_name': attributes[2],
+                    'name': attributes[1],
+                    'lastname': attributes[2],
                     'email': attributes[3],
                     'about_you': attributes[4],
                     'birthdate': attributes[5],
+                    'cell': null
                 }
                 fileData.push(member)
             })
@@ -50,25 +51,51 @@ function ImportMembers() {
         reader.readAsText(fileUploaded)
     };
 
-    function saveMembers() {
-
-        members.map((prop, key) => {
-            
-            var options = {
-                place: "tr",
-                message: (
+    function error_saving(member_obj, status) {
+        var status_type = status.ok ? 'success' : 'danger'
+        var error_message = {
+            place: "tr",
+            message: (
+                <>
                     <div>
-                        <div>
-                            {prop.ci} con nombre {prop.first_name} ya esta registrado en el systema
-                        </div>
+                        Registering to {member_obj.ci} - {member_obj.name}
+                        {status.ok ? status : ''}
+                        {/* {member_obj.ci} con nombre {member_obj.name} ya esta registrado en el systema */}
                     </div>
-                ),
-                type: "danger",
-                icon: "nc-icon nc-bell-55",
-                autoDismiss: 5
+                </>
+            ),
+            type: status_type,
+            icon: "nc-icon nc-bell-55",
+            autoDismiss: 5
+        };
+        notificationAlert.current.notificationAlert(error_message);
+    }
+
+    function saveMembers() {
+        members.map((memberObj, key) => {
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(memberObj)
             };
-            console.log(prop)
-            notificationAlert.current.notificationAlert(options);
+            // TODO: Move the URLs to a single file, use importing those.
+            fetch('http://localhost:8000/church/person/', requestOptions)
+                .then((response) => {
+                    if (response.ok) {
+                        error_saving(memberObj, response)
+                        return response.json();
+                    }
+                    throw new Error('Something went wrong');
+                })
+                .then((responseJson) => {
+                    console.log("registration success" + responseJson)
+                })
+                .catch(error => {
+                    console.log("There were error...:'v")
+                    console.log(error)
+                    // error_saving(memberObj, error)
+                })
+
         })
 
     }
@@ -122,8 +149,8 @@ function ImportMembers() {
                                                         <tr key={key}>
                                                             <td>{key + 1}</td>
                                                             <td>{prop['ci']}</td>
-                                                            <td>{prop['first_name']}</td>
-                                                            <td>{prop['last_name']}</td>
+                                                            <td>{prop['name']}</td>
+                                                            <td>{prop['lastname']}</td>
                                                             <td>{prop['email']}</td>
                                                             <td>{prop['about_you']}</td>
                                                             <td>{prop['birthdate']}</td>
