@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import NotificationAlert from "react-notification-alert";
+import { useHistory } from "react-router-dom";
 
 import {
     Button,
@@ -15,7 +16,8 @@ import {
     Col,
     Table,
     Label,
-    FormText
+    FormText,
+    Modal, ModalHeader, ModalBody, ModalFooter, ListGroup, ListGroupItem
 } from "reactstrap";
 
 let formulary_title = "Import members"
@@ -24,7 +26,11 @@ function ImportMembers() {
 
     const headers = ["No.", "Ci", "Firstname", "Lastname", , "Email", "About You", "Birthdate"]
     const [members, setMembers] = useState([])
+    const [modal, setModal] = useState(false)
+    const [membersWithErrors, setMembersWithErrors] = useState([])
     const notificationAlert = React.useRef();
+    const history = useHistory();
+    const toggle = () => setModal(!modal);
 
     function handleChange(event) {
         const fileUploaded = event.target.files[0];
@@ -51,27 +57,47 @@ function ImportMembers() {
         reader.readAsText(fileUploaded)
     };
 
-    function error_saving(member_obj, status) {
-        var status_type = status.ok ? 'success' : 'danger'
+    function error_saving(member_obj, error) {
         var error_message = {
             place: "tr",
             message: (
-                <>
-                    <div>
-                        Registering to {member_obj.ci} - {member_obj.name}
-                        {status.ok ? status : ''}
-                        {/* {member_obj.ci} con nombre {member_obj.name} ya esta registrado en el systema */}
-                    </div>
-                </>
+                <div>
+                    Error registering {member_obj.ci} - {member_obj.name}
+                </div>
             ),
-            type: status_type,
+            type: 'danger',
             icon: "nc-icon nc-bell-55",
-            autoDismiss: 5
+            autoDismiss: 40
         };
         notificationAlert.current.notificationAlert(error_message);
     }
 
+    // The function is having problems trying to refresh the table into the modal, this is not updated
+    function savingReport() {
+        return (
+            <Modal isOpen={modal} toggle={toggle}>
+                <ModalHeader toggle={toggle}>List of members that were not saved</ModalHeader>
+                <ModalBody>
+                    <ListGroup>
+                        {
+                            membersWithErrors.map((prop, key) => {
+                                return (
+                                    <ListGroupItem key={key}>{prop.ci} - {prop.name}</ListGroupItem>
+                                );
+                            }) ? membersWithErrors.length > 0 : "All the members were saved successfully"
+                        }
+                    </ListGroup>
+                </ModalBody>
+                <ModalFooter>
+                    <Button color="primary" onClick={() => { history.push('/members') }}>Go to Members List</Button>{' '}
+                    <Button color="secondary" onClick={toggle}>Cancel</Button>
+                </ModalFooter>
+            </Modal>
+        )
+    }
+
     function saveMembers() {
+        var membersErrors = []
         members.map((memberObj, key) => {
             const requestOptions = {
                 method: 'POST',
@@ -82,22 +108,21 @@ function ImportMembers() {
             fetch('http://localhost:8000/church/person/', requestOptions)
                 .then((response) => {
                     if (response.ok) {
-                        error_saving(memberObj, response)
                         return response.json();
+                    } else {
+                        throw new Error('Something went wrong');
                     }
-                    throw new Error('Something went wrong');
                 })
                 .then((responseJson) => {
                     console.log("registration success" + responseJson)
                 })
                 .catch(error => {
-                    console.log("There were error...:'v")
-                    console.log(error)
-                    // error_saving(memberObj, error)
+                    error_saving(memberObj, error)
+                    membersErrors.push(memberObj)
                 })
-
         })
-
+        setMembersWithErrors(membersErrors)
+        setModal(true)
     }
 
     return (
@@ -179,6 +204,7 @@ function ImportMembers() {
                         </Card>
                     </Col>
                 </Row>
+                {/* {savingReport()} */}
             </div>
         </>
     )
