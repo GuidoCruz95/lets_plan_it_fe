@@ -24,7 +24,7 @@ let formulary_title = "Import members"
 
 function ImportMembers() {
 
-    const headers = ["No.", "Ci", "Firstname", "Lastname", , "Email", "About You", "Birthdate"]
+    const headers = ["No.", "Ci", "Firstname", "Lastname", "Email", "About You", "Birthdate"]
     const [members, setMembers] = useState([])
     const [modal, setModal] = useState(false)
     const [membersWithErrors, setMembersWithErrors] = useState([])
