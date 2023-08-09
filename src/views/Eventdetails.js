@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import NotificationAlert from "react-notification-alert";
+import staticVariables from "../components/variables/resources";
 import {
     Table,
     Card,
@@ -12,17 +13,33 @@ import {
 } from "reactstrap";
 
 let formulary_title = "Event Details"
-let headers = ['some', 'header', 'here']
+let headers = ['Id.', 'CI', 'Nombre', 'Apellido', 'Listo']
 
 function EventDetails() {
 
-    let errorMessage = "error registering "
-    let successMessage = "Saved successfully "
+    let errorMessage = "Error getting the people"
+    let successMessage = "People loaded successfully"
+
+    const [people, setPeople] = useState([]);
+
+    useEffect(() => {
+        fetch(staticVariables['HOST'] + staticVariables['ENTRY_POINTS']['people-by-event'])
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                setPeople(data);
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+    }, []);
+
     let registered = [
         {
             'ci': 8822958,
             'name': 'guido',
-            'lastname': 'Cruz Huanca'
+            'lastname': 'Cruz Huanca',
+            'ready': true
         }
     ]
     let event = {
@@ -59,22 +76,6 @@ function EventDetails() {
             <div className="content">
                 <NotificationAlert ref={notificationAlert} />
                 <Row>
-                    <Col md="4">
-                        <Card className="card-user">
-                            <CardHeader>
-                                <CardTitle tag="h5">{event.name}</CardTitle>
-                            </CardHeader>
-                            <CardBody>
-                                Esta activida inicia el <b>{event.start_date}</b>
-                                y termina el <b>{event.end_date}</b>.
-                                La actividad sera realizada en <b>{event.location}</b>
-                                con un costo de <b>{event.cost}</b>.
-                                Lo que se necesita para participar de este evento es:
-                                
-                                {/* All the event attributes */}
-                            </CardBody>
-                        </Card>
-                    </Col>
                     <Col md="8">
                         <Card className="card-user">
                             <div className="image">
@@ -128,6 +129,22 @@ function EventDetails() {
                                     </Row>
                                 </div>
                             </CardFooter>
+                        </Card>
+                    </Col>
+                    <Col md="4">
+                        <Card className="card-user">
+                            <CardHeader>
+                                <CardTitle tag="h5">{event.name}</CardTitle>
+                            </CardHeader>
+                            <CardBody>
+                                Esta activida inicia el <b>{event.start_date}</b>
+                                y termina el <b>{event.end_date}</b>.
+                                La actividad sera realizada en <b>{event.location}</b>
+                                con un costo de <b>{event.cost}</b>.
+                                Lo que se necesita para participar de este evento es:
+                                
+                                {/* All the event attributes */}
+                            </CardBody>
                         </Card>
                     </Col>
                 </Row>
