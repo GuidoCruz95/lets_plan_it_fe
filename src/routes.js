@@ -3,6 +3,7 @@ import EventsList from "views/Events"
 import NewMember from "views/NewMember"
 import NewEvent from "views/NewEvent";
 import ImportMembers from "views/ImportMembers";
+import EventDetails from "views/Eventdetails";
 
 var routes = [
   {
@@ -41,6 +42,14 @@ var routes = [
     name: "Import Members",
     icon: "",
     component: ImportMembers,
+    layout: "/admin"
+  },
+  {
+    hide: true,
+    path: "/event-details",
+    name: "Event",
+    icon: "",
+    component: EventDetails,
     layout: "/admin"
   }
 ];

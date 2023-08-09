@@ -1,7 +1,8 @@
 {
     "HOST": "http://localhost:8000/",
     "ENTRY_POINTS": {
-        "people": "church/person/",
-        "events": "church/events/"
+        "people": "lets_plan_it/person/",
+        "events": "lets_plan_it/events/",
+        "people-by-event": "lets_plan_it/events/{event_id}/people"
     }
 }
